@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#2b2019"/>
-  <path d="M16 14h32a4 4 0 0 1 4 4v18H12V18a4 4 0 0 1 4-4Z" fill="#f6f0e6"/>
-  <path d="m20 20 10 5-10 5Z" fill="#2b2019"/>
-  <path d="M35 23v5m5-9v13m5-9v5" stroke="#2b2019" stroke-width="2" stroke-linecap="round"/>
-  <path d="M32 35v13m-6-6 6 6 6-6M16 46v7h32v-7" fill="none" stroke="#ff9463" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path fill="#FFF6E4" d="M16,0H48C57,0 64,7 64,16V48C64,57 57,64 48,64H16C7,64 0,57 0,48V16C0,7 7,0 16,0Z"/>
+  <path fill="none" stroke="#171411" stroke-width="4" d="M16,12H48Q54,12 54,18V34Q54,40 48,40H16Q10,40 10,34V18Q10,12 16,12Z"/>
+  <path fill="#171411" d="M19,21Q19,19 21,20L29,25Q30.5,26 29,27L21,32Q19,33 19,31Z"/>
+  <path fill="none" stroke="#171411" stroke-width="3" stroke-linecap="round" d="M34,18V34M40,26V30M45,22V32M49,19V33"/>
+  <path fill="#E9510A" d="M28,41H36V47H42Q44,47 42.5,49L33.5,58Q32,59.5 30.5,58L21.5,49Q20,47 22,47H28Z"/>
 </svg>

@@ -1,11 +1,9 @@
-# ClipDock Web
+# ClipDock website and web app
 
-Browser version of ClipDock for choosing and downloading MP4 video and MP3 audio from supported public YouTube, Instagram and X links. It uses the same companion media API as the Android app.
+The root contains the Android app landing page. The browser downloader lives at `/app/` and uses the ClipDock companion media API. GitHub Pages publishes the root of `main`.
 
-## Run and publish
+For local preview, run `python3 -m http.server 8765`. For local media requests, point `app/config.js` at an HTTPS development backend that allows your exact browser origin.
 
-Run `python3 -m http.server 8765` and open `http://localhost:8765/`. For media requests in local development, use a development backend that allows that exact browser origin. GitHub Pages publishes the root of `main`.
+The backend supports `POST /bootstrap`, `POST /inspect`, and `POST /download`. The web app obtains a short-lived session from the configured bootstrap URL. The current deployment uses a Cloudflare quick tunnel. Update the bootstrap URL if the tunnel hostname changes.
 
-Set the public HTTPS discovery URL in `config.js`. The backend must support `POST /bootstrap`, `POST /inspect`, and `POST /download` and allow the site's browser origin via CORS, including preflights. The browser requests short-lived session credentials from the backend. The current backend uses a Cloudflare quick tunnel. If its hostname changes, update the config and redeploy.
-
-Downloads use browser download settings. Library copies live in IndexedDB and can be played or removed locally. Clearing browser data can remove these copies. Removing a Library copy leaves the downloaded file on disk.
+The web app sends files to the browser download manager.

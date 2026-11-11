@@ -16,6 +16,7 @@ let libraryRender = 0;
 function message(value, error = false) {
   status.textContent = value;
   status.toggleAttribute('data-error', error);
+  status.hidden = !value;
 }
 
 function setBusy(value) {
@@ -62,6 +63,21 @@ async function api(path, body, retry = true) {
   return response;
 }
 
+function showResult(visible) {
+  result.hidden = !visible;
+  byId('empty').hidden = visible;
+}
+
+function updateDownloadLabel() {
+  const [kind, quality] = result.querySelector('input:checked').value.split(':');
+  const format = kind === 'audio' ? 'MP3' : 'MP4';
+  const unit = kind === 'audio' ? ' kbps' : 'p';
+  save.textContent = 'Download ' + format;
+  byId('selection').textContent = quality + unit;
+}
+
+byId('formats').addEventListener('change', updateDownloadLabel);
+
 function showFormats(info) {
   const formats = byId('formats');
   formats.replaceChildren();
@@ -94,7 +110,8 @@ function showFormats(info) {
   const thumbnail = byId('thumbnail');
   thumbnail.hidden = !/^https:\/\//i.test(info.thumbnail);
   if (!thumbnail.hidden) thumbnail.src = info.thumbnail;
-  result.hidden = false;
+  showResult(true);
+  updateDownloadLabel();
 }
 
 byId('link-form').addEventListener('submit', async event => {
@@ -108,7 +125,7 @@ byId('link-form').addEventListener('submit', async event => {
     return;
   }
   url.hash = '';
-  result.hidden = true;
+  showResult(false);
   setBusy(true);
   message('Looking up available formats…');
   try {
@@ -124,7 +141,7 @@ byId('link-form').addEventListener('submit', async event => {
 });
 
 input.addEventListener('input', () => {
-  result.hidden = true;
+  showResult(false);
   message('');
 });
 
@@ -139,26 +156,6 @@ byId('paste').addEventListener('click', async () => {
   }
   input.focus();
 });
-
-function database() {
-  if (!dbPromise) dbPromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open('clipdock', 1);
-    request.onupgradeneeded = () => request.result.createObjectStore('media', { keyPath: 'id' });
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-  return dbPromise;
-}
-
-async function libraryStore(mode, operation) {
-  const db = await database();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction('media', mode);
-    const request = operation(transaction.objectStore('media'));
-    transaction.oncomplete = () => resolve(request.result);
-    transaction.onabort = () => reject(transaction.error);
-  });
-}
 
 function browserDownload(blob, name) {
   const url = URL.createObjectURL(blob);
@@ -188,91 +185,13 @@ save.addEventListener('click', async () => {
     }
     const blob = await response.blob();
     browserDownload(blob, name);
-    try {
-      const date = Date.now();
-      await libraryStore('readwrite', store => store.put({ id: crypto.randomUUID(), date, name, kind, blob }));
-      message('Download started. A copy is available in Library.');
-      if (!byId('library').hidden) await showLibrary();
-    } catch {
-      message('Download started. The browser could not keep a copy in Library.');
-    }
+    message('Download sent to your browser.');
   } catch (error) {
     message(error.message, true);
   } finally {
     setBusy(false);
   }
 });
-
-function stopPlayback() {
-  const player = document.querySelector('.file-player');
-  player?.pause();
-  player?.remove();
-  if (playbackUrl) URL.revokeObjectURL(playbackUrl);
-  playbackUrl = undefined;
-}
-
-async function showLibrary() {
-  const render = ++libraryRender;
-  stopPlayback();
-  const files = byId('files');
-  const libraryStatus = byId('library-status');
-  files.replaceChildren();
-  libraryStatus.textContent = 'Loading Library…';
-  try {
-    const records = await libraryStore('readonly', store => store.getAll());
-    if (render !== libraryRender) return;
-    libraryStatus.textContent = records.length ? '' : 'Your downloads will appear here.';
-    for (const file of records.sort((a, b) => b.date - a.date)) {
-      const item = document.createElement('li');
-      item.className = 'card';
-      const heading = document.createElement('h2');
-      heading.textContent = file.name;
-      const actions = document.createElement('div');
-      actions.className = 'file-actions';
-      const button = (label, click) => {
-        const element = document.createElement('button');
-        element.textContent = label;
-        element.addEventListener('click', click);
-        return element;
-      };
-      actions.append(button('Play', () => {
-        stopPlayback();
-        const player = document.createElement(file.kind === 'audio' ? 'audio' : 'video');
-        player.className = 'file-player';
-        player.controls = true;
-        playbackUrl = URL.createObjectURL(file.blob);
-        player.src = playbackUrl;
-        item.append(player);
-        player.play().catch(() => {});
-      }), button('Save again', () => browserDownload(file.blob, file.name)),
-      button('Delete from Library', async () => {
-        try {
-          await libraryStore('readwrite', store => store.delete(file.id));
-          await showLibrary();
-        } catch {
-          libraryStatus.textContent = 'Could not remove this copy from Library.';
-        }
-      }));
-      item.append(heading, actions);
-      files.append(item);
-    }
-  } catch {
-    if (render !== libraryRender) return;
-    libraryStatus.textContent = 'Library storage is unavailable in this browser.';
-  }
-}
-
-for (const name of ['download', 'library']) {
-  byId(name + '-tab').addEventListener('click', () => {
-    for (const view of ['download', 'library']) {
-      byId(view).hidden = name !== view;
-      if (name === view) byId(view + '-tab').setAttribute('aria-current', 'page');
-      else byId(view + '-tab').removeAttribute('aria-current');
-    }
-    if (name === 'library') showLibrary();
-    else stopPlayback();
-  });
-}
 
 const themeButton = byId('theme');
 function setTheme(dark) {

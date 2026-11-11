@@ -1,54 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Save video and audio from YouTube, Instagram and X with ClipDock.">
-<title>ClipDock — Download media</title>
-<link rel="icon" href="assets/icon.svg">
-<link rel="stylesheet" href="style.css">
-<script type="module" src="app.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ClipDock is an Android app for saving video and audio from shared YouTube, Instagram and X links.">
+  <meta name="theme-color" content="#f6f0e6">
+  <title>ClipDock — Video and audio for Android</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="preview.js" defer></script>
 </head>
 <body>
-<header class="shell top">
-<a class="brand" href="./"><img src="assets/icon.svg" width="38" height="38" alt="">ClipDock</a>
-<button id="theme" type="button" class="secondary" aria-pressed="false">Dark theme</button>
-</header>
-<main class="shell">
-<nav aria-label="ClipDock">
-<button type="button" id="download-tab" aria-current="page">↓ Download</button>
-<button type="button" id="library-tab">Library</button>
-</nav>
-<section id="download">
-<div class="intro">
-<p class="eyebrow">YouTube · Instagram · X</p>
-<h1>Download media<span>.</span></h1>
-<p>Paste a video link, choose your quality, and save an MP4 or MP3.</p>
-</div>
-<form id="link-form" class="card">
-<label for="url">Media link</label>
-<div class="controls">
-<input type="url" id="url" name="url" placeholder="https://…" maxlength="2000" required>
-<button type="button" class="secondary" id="paste">Paste</button>
-<button type="submit" class="primary" id="inspect">Load formats</button>
-</div>
-</form>
-<p id="status" role="status" aria-live="polite"></p>
-<section id="result" class="card" hidden aria-labelledby="media-title">
-<div class="media">
-<img id="thumbnail" alt="" hidden referrerpolicy="no-referrer">
-<div><h2 id="media-title"></h2><p id="author"></p></div>
-</div>
-<div id="formats"></div>
-<button type="button" class="primary" id="save">Download</button>
-</section>
-<p class="note">Save media you own or have permission to download. File location follows your browser’s download settings.</p>
-</section>
-<section id="library" hidden>
-<div class="intro"><p class="eyebrow">Saved on this browser</p><h1>Library<span>.</span></h1><p>Play, save again, or remove your media.</p></div>
-<p id="library-status" role="status"></p>
-<ul id="files"></ul>
-</section>
-</main>
+  <header class="shell top">
+    <a class="brand" href="./"><img src="assets/icon.svg" width="38" height="38" alt="">ClipDock</a>
+    <a class="nav-link" href="app/">Open web app <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="shell hero" aria-labelledby="headline">
+      <div class="intro">
+        <p class="eyebrow"><span></span> Made for Android</p>
+        <h1 id="headline">Save the video.<br><em>Keep the audio.</em></h1>
+        <p class="lede">Share a link from YouTube, Instagram, or X to ClipDock. Pick an MP4 resolution or MP3 bitrate and save the file to your phone.</p>
+        <div class="hero-actions"><a class="cta" href="app/">Open web app <span aria-hidden="true">↗</span></a><a class="nav-link" href="#workflow">How it works <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <div class="showcase">
+        <div class="phone">
+          <img id="app-preview" src="assets/dark.png" width="1080" height="2400" alt="ClipDock home screen in dark mode, showing the link field and Library tab">
+        </div>
+        <div class="switcher" role="group" aria-label="App preview theme" hidden>
+          <button type="button" data-theme="dark" aria-pressed="true">Dark</button>
+          <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        </div>
+      </div>
+    </section>
+    <section class="shell workflow" id="workflow" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">From link to library.</h2>
+      <ol class="steps">
+        <li><h3>Share a link</h3><p>Choose ClipDock in the Android share menu, or paste the link directly into the app.</p></li>
+        <li><h3>Pick your format</h3><p>Choose from available MP4 resolutions or MP3 bitrates. MP3 starts at 320 kbps by default.</p></li>
+        <li><h3>Find it in Library</h3><p>Play saved audio in the app, delete files, or open Downloads/ClipDock in your file manager.</p></li>
+      </ol>
+      <p class="note">ClipDock uses a companion service to load formats and process downloads. Save media you own or have permission to download.</p>
+    </section>
+  </main>
+  <footer class="shell footer"><span>ClipDock for Android</span><a href="./">Back to top ↑</a></footer>
 </body>
 </html>

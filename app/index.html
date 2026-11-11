@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose an MP4 resolution or MP3 bitrate and download media with ClipDock.">
+  <title>ClipDock — Web app</title>
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="shell top">
+      <a class="brand" href="../"><img src="../assets/icon.svg" width="40" height="40" alt="">ClipDock</a>
+      <div class="header-actions">
+        <a class="home" href="../">Home</a>
+        <button id="theme" type="button" class="theme" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 15.4A9 9 0 0 1 8.6 3.2 9 9 0 1 0 20.8 15.4Z"/></svg>
+          Dark theme
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <div class="intro">
+      <h1>Download media<span>.</span></h1>
+      <p>Save a video as MP4 or keep the audio as MP3.</p>
+    </div>
+    <div class="workspace">
+      <section class="card source" aria-labelledby="source-title">
+        <h2 id="source-title">Source</h2>
+        <ul class="platforms" aria-label="Supported platforms">
+          <li><span aria-hidden="true">▶</span> YouTube</li>
+          <li><span aria-hidden="true">◎</span> Instagram</li>
+          <li><span aria-hidden="true">𝕏</span> X</li>
+        </ul>
+        <form id="link-form">
+          <label for="url">Media link</label>
+          <div class="input-row">
+            <input type="url" id="url" name="url" placeholder="https://…" maxlength="2000" required autocomplete="off">
+            <button type="button" id="paste">Paste</button>
+          </div>
+          <button type="submit" class="primary load" id="inspect">Load formats <span aria-hidden="true">→</span></button>
+        </form>
+        <p id="status" role="status" aria-live="polite" hidden></p>
+      </section>
+      <section class="card output" aria-labelledby="output-title">
+        <h2 id="output-title">Download options</h2>
+        <div id="empty" class="empty">
+          <img src="../assets/icon.svg" width="64" height="64" alt="">
+          <p>Available resolutions and bitrates will appear here.</p>
+        </div>
+        <div id="result" hidden>
+          <div class="media">
+            <img id="thumbnail" alt="" hidden referrerpolicy="no-referrer">
+            <div><h3 id="media-title"></h3><p id="author"></p></div>
+          </div>
+          <div id="formats"></div>
+          <div class="export">
+            <span id="selection"></span>
+            <button type="button" class="primary" id="save">Download</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer><p>Save media you own or have permission to download. Files follow your browser’s download settings.</p></footer>
+  </main>
+</body>
+</html>
