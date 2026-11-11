@@ -11,7 +11,6 @@ let media;
 let busy = false;
 let playbackUrl;
 let dbPromise;
-let libraryRender = 0;
 
 function message(value, error = false) {
   status.textContent = value;
