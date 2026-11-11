@@ -73,3 +73,36 @@ footer { color: var(--muted); font-size: .85rem; line-height: 1.55; padding-bloc
   .brand > svg { width: 26px; height: 27px; }
   .theme { padding-inline: 8px; }
 }
+
+.install-banner {
+  margin-bottom: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.install-banner summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  cursor: pointer;
+  padding: 12px;
+}
+.install-banner summary::-webkit-details-marker { display: none; }
+.install-banner img { flex: none; border-radius: 8px; }
+.install-copy { flex: 1; display: grid; gap: 3px; }
+.install-copy > span, .install-guide { color: var(--muted); font-size: .85rem; line-height: 1.45; }
+.install-action {
+  flex: none;
+  padding: 8px 10px;
+  color: var(--orange);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: .9rem;
+}
+.install-guide { border-top: 1px solid var(--line); padding: 0 16px; }
+.install-guide strong { color: var(--text); }
+@media (display-mode: standalone) {
+  .install-banner { display: none; }
+}

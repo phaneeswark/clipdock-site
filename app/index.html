@@ -6,7 +6,11 @@
   <meta name="description" content="Choose an MP4 resolution or MP3 bitrate and download media with ClipDock.">
   <title>ClipDock — Web app</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/install-180.png">
+  <meta name="theme-color" content="#f8f1e6">
+  <link rel="stylesheet" href="style.css?v=6">
+  <script src="install.js" defer></script>
   <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -27,6 +31,22 @@
       <h1>Download media<span>.</span></h1>
       <p>Save a video as MP4 or keep the audio as MP3.</p>
     </div>
+    <section class="install-banner" id="install-banner" aria-labelledby="install-title">
+      <details id="install-details">
+        <summary>
+          <img src="../assets/install-192.png" width="40" height="40" alt="">
+          <span class="install-copy">
+            <strong id="install-title">Install ClipDock</strong>
+            <span>Add the web app to your Android or iPhone home screen.</span>
+          </span>
+          <span class="install-action">Install <span aria-hidden="true">⌄</span></span>
+        </summary>
+        <div class="install-guide">
+          <p><strong>Android</strong> Open ClipDock in Chrome, then use the browser menu and choose <b>Add to home screen</b> or <b>Install app</b>.</p>
+          <p><strong>iPhone or iPad</strong> Open ClipDock in Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>. Turn on <b>Open as Web App</b> if shown, then tap <b>Add</b>.</p>
+        </div>
+      </details>
+    </section>
     <div class="workspace">
       <section class="card source" aria-labelledby="source-title">
         <h2 id="source-title">Source</h2>
