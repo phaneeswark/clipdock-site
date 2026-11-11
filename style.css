@@ -16,7 +16,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #217fc2; outline-offs
 .shell { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
 .top, .footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 22px 0; }
 .top { border-bottom: 1px solid var(--line); }
-.brand { display: inline-flex; align-items: center; gap: 16px; font-size: 1.55rem; font-weight: 800; text-decoration: none; letter-spacing: -.035em; }
+.brand { display: inline-flex; align-items: center; gap: 6px; line-height: 1; font-size: 1.55rem; font-weight: 800; text-decoration: none; letter-spacing: -.035em; }
 .nav-link { font-size: .9rem; font-weight: 650; text-decoration: none; }
 .nav-link span { margin-left: 5px; color: var(--orange); }
 .nav-link:hover, .footer a:hover { text-decoration: underline; }
