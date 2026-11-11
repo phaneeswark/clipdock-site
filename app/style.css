@@ -68,3 +68,8 @@ footer { color: var(--muted); font-size: .85rem; line-height: 1.55; padding-bloc
 }
 
 .brand-mark { flex: none; }
+@media (max-width: 400px) {
+  .brand { gap: 8px; font-size: 1.15rem; }
+  .brand > svg { width: 26px; height: 27px; }
+  .theme { padding-inline: 8px; }
+}
